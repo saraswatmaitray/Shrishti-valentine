@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ffd6e8, #ffeef5);
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 80px;
+      font-size: 48px;
+      color: #d6336c;
+    }
+
+    .message {
+      max-width: 700px;
+      margin: 20px auto;
+      font-size: 20px;
+      color: #a61e4d;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    .btn {
+      background: #ff4d88;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.3s, left 0.2s, top 0.2s;
+      position: relative;
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      background: #e0316f;
+    }
+
+    /* Slideshow */
+    .slideshow {
+      display: none;
+      max-width: 520px;
+      margin: 30px auto;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+      display: none;
+    }
+
+    /* Love meter */
+    .meter-wrap {
+      max-width: 500px;
+      margin: 40px auto 10px;
+    }
+
+    .meter-bar {
+      width: 100%;
+      height: 26px;
+      background: #ffd0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6b9a, #ff2f6d);
+      border-radius: 20px;
+      transition: width 0.4s ease;
+    }
+
+    .meter-text {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #a61e4d;
+      font-weight: 600;
+    }
+
+    .footer {
+      margin: 60px 0 30px;
+      font-size: 20px;
+      color: #c2255c;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); }
+      to { transform: translateY(-110vh); }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      font-size: 18px;
+      animation: confettiFall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Hidden secret button */
+    .secret-btn {
+      position: fixed;
+      right: 8px;
+      bottom: 8px;
+      opacity: 0.15;
+      font-size: 14px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+    }
+
+    .popup-box {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      font-size: 36px;
+      color: #d6336c;
+      font-weight: bold;
+      animation: pop 0.6s ease-out;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
+    /* Pages */
+    .page { min-height: 100vh; display: none; padding: 20px; }
+    #page1 { display: block; }
+
+    .button-row {
+      margin-top: 40px;
+      position: relative;
+      height: 140px;
+    }
+
+    #noBtn { position: absolute; }
+  </style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page">
+  <h1>Shrishti, will you be my Valentine? 💌</h1>
+  <div class="message">
+    Ay Chickni , chal valentine banja meri 😌💖
+  </div>
+
+  <div class="button-row" id="btnArea">
+    <button class="btn" onclick="acceptValentine()">Yes 💖</button>
+    <button class="btn" id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 🙈</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+  <h1>Happy Valentine’s Day Shrishti Lavaniya 💖</h1>
+
+  <div class="message">
+ To my favourite Murkh Person ever , I love you so much .
+ Every minute i spent with you is the happiest of my life. 🌸
+  </div>
+
+  <!-- LOVE METER -->
+  <div class="meter-wrap">
+    <div class="meter-bar">
+      <div class="meter-fill" id="loveFill"></div>
+    </div>
+    <div class="meter-text" id="loveText">How much I love you: 0%</div>
+    <button class="btn" onclick="fillLove()">Measure My Love 💗</button>
+  </div>
+
+  <button class="btn" onclick="startMemories()">Play Our Memories ▶️</button>
+
+  <!-- SLIDESHOW -->
+  <div class="slideshow" id="slideshow">
+    <img class="slide" src="C:\Users\Dell\OneDrive\Desktop\valentine.html\WhatsApp Image 2026-02-14 at 08.05.24.jpeg">
+    <img class="slide" src="C:\Users\Dell\OneDrive\Desktop\valentine.html\WhatsApp Image 2026-02-13 at 22.53.09.jpeg">
+    <img class="slide" src="C:\Users\Dell\OneDrive\Desktop\valentine.html\WhatsApp Image 2026-02-13 at 22.53.10.jpeg">
+    
+  </div>
+
+  <div class="footer">Made with all my love 🌹</div>
+</div>
+
+<!-- SECRET BUTTON -->
+<button class="secret-btn" onclick="secretMessage()">🌸</button>
+
+<!-- POPUP -->
+<div class="popup" id="lovePopup">
+  <div class="popup-box">I LOVE YOU SHRISHTI 💖</div>
+</div>
+
+<!-- Song -->
+<audio id="loveSong" src="C:\Users\Dell\OneDrive\Desktop\valentine.html\WhatsApp Audio 2026-02-14 at 09.01.33.mpeg" preload="auto"></audio>
+
+<script>
+  function acceptValentine() {
+    page1.style.display = 'none';
+    page2.style.display = 'block';
+    launchConfetti();
+  }
+
+  // slideshow + music
+  let slideIndex = 0;
+  let slideTimer;
+
+  function startMemories() {
+    const show = document.getElementById('slideshow');
+    show.style.display = 'block';
+    const song = document.getElementById('loveSong');
+    song.currentTime = 0;
+    song.play().catch(()=>{});
+    showSlides();
+    setTimeout(showFinalPopup, 12000);
+  }
+
+  function showSlides() {
+    const slides = document.getElementsByClassName('slide');
+    for (let s of slides) s.style.display = 'none';
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].style.display = 'block';
+    slideTimer = setTimeout(showSlides, 2000);
+  }
+
+  // final popup
+  function showFinalPopup() {
+    document.getElementById('lovePopup').style.display = 'flex';
+    launchConfetti();
+  }
+
+  // secret message
+  function secretMessage() {
+    alert('Secret unlocked 💌\nShrishti, you are my favorite notification, my safest place, and my forever person.');
+  }
+
+  // love meter
+  function fillLove() {
+    const fill = loveFill;
+    const text = loveText;
+    let value = 0;
+    const i = setInterval(()=>{
+      value += Math.floor(Math.random()*8)+3;
+      if (value >= 100) {
+        value = 100;
+        clearInterval(i);
+        text.innerText = 'How much I love you: Infinite ♾️💖';
+        launchConfetti();
+      } else text.innerText = 'How much I love you: '+value+'%';
+      fill.style.width = value+'%';
+    },120);
+  }
+
+  // runaway no
+  const noTexts = ['No 🙈','Are you sure? 😢','Think again 😭','Really?? 💔','You can\'t say no 😝'];
+  let noIndex = 0;
+  function moveNo() {
+    const btn = noBtn;
+    const area = btnArea;
+    btn.style.left = Math.random()*(area.clientWidth-btn.offsetWidth)+'px';
+    btn.style.top = Math.random()*(area.clientHeight-btn.offsetHeight)+'px';
+    noIndex=(noIndex+1)%noTexts.length;
+    btn.innerText=noTexts[noIndex];
+  }
+
+  // hearts
+  function createHeart() {
+    const h=document.createElement('div');
+    h.className='heart';
+    h.innerHTML='❤️';
+    h.style.left=Math.random()*100+'vw';
+    h.style.animationDuration=(4+Math.random()*4)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),8000);
+  }
+  setInterval(createHeart,400);
+
+  // confetti
+  function launchConfetti() {
+    const e=['💖','🌸','✨','🎉','💝'];
+    for(let i=0;i<60;i++){
+      const c=document.createElement('div');
+      c.className='confetti';
+      c.innerHTML=e[Math.floor(Math.random()*e.length)];
+      c.style.left=Math.random()*100+'vw';
+      c.style.animationDuration=(3+Math.random()*2)+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),5000);
+    }
+  }
+</script>
+
+</body>
+</html>
